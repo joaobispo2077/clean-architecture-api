@@ -1,0 +1,19 @@
+{
+  "name": "clean-arch-api",
+  "version": "1.0.0",
+  "description": "API of a backend for a crud with mailer application. It was written in Node.js and TypeScript following the Clean Architecture principles.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "typescript",
+    "tdd",
+    "ddd",
+    "clean-code",
+    "clean-architecture"
+  ],
+  "author": "",
+  "license": "ISC"
+}
