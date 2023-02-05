@@ -4,11 +4,6 @@
  Clean Architecture API
 </h1>
 
-<h3 align="center">
- "If you think good architecture is expensive, try bad architecture." - Brian Foole & Joseph Yoder
-</h3>
-
-<!-- add a quotation version of quote above -->
 <p align="center">
   <blockquote>
       If you think good architecture is expensive, try bad architecture.
