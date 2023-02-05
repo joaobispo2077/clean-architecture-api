@@ -4,7 +4,7 @@ module.exports = {
     node: true,
     jest: true
   },
-  extends: 'standard',
+  extends: ['standard', 'plugin:prettier/recommended'],
   overrides: [
   ],
   parser: '@typescript-eslint/parser',
