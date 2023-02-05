@@ -16,7 +16,9 @@
    <cite>- Brian Foole & Joseph Yoder</cite>
 </p>
 
-<img  alt="Diagram Clean Architecture" title="#clean-architecture" src=".github/assets/clean-architecture-diagram.svg" width="400px" />
+<div align="center">
+  <img  alt="Diagram Clean Architecture" title="#clean-architecture" src=".github/assets/clean-architecture-diagram.svg" width="600px" />
+</div>
 
 <p align="center">
  <img src="https://img.shields.io/static/v1?label=PRs&message=welcome&color=2BA5A5&labelColor=1C1C1C" alt="PRs welcome!" />
