@@ -1,7 +1,7 @@
 {
-  "name": "clean-arch-api",
+  "name": "clean-architecture-api",
   "version": "1.0.0",
-  "description": "API of a backend for a crud with mailer application. It was written in Node.js and TypeScript following the Clean Architecture principles.",
+  "description": "API for a squeze page to register users on a mailing list and to email them a bonus. It was written in Node.js and TypeScript following the Clean Architecture principles.",
   "main": "index.js",
   "scripts": {
     "test": "jest",
