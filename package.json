@@ -15,5 +15,10 @@
     "clean-architecture"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.19",
+    "git-commit-msg-linter": "^4.5.0",
+    "typescript": "^4.9.5"
+  }
 }
