@@ -1,13 +1,15 @@
 module.exports = {
   env: {
     es2021: true,
-    node: true
+    node: true,
+    jest: true
   },
-  extends: 'standard-with-typescript',
+  extends: 'standard',
   overrides: [
   ],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: 12
   },
   rules: {
   }
