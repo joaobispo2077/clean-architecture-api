@@ -43,6 +43,14 @@ describe('Email validation', () => {
     expect(isValidEmail).toBe(false);
   });
 
+  it('should not accept empty domain part', () => {
+    const email = 'john.doe@';
+
+    const isValidEmail = Email.validate(email);
+
+    expect(isValidEmail).toBeFalsy();
+  });
+
   it('should accept a valid email', () => {
     const email = 'john.doe@gmail.com';
 
