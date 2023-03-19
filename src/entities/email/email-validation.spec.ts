@@ -51,6 +51,14 @@ describe('Email validation', () => {
     expect(isValidEmail).toBeFalsy();
   });
 
+  it('should not accept email domain with a part larger than 63 chars', () => {
+    const email = `john.doe@${'g'.repeat(64)}mail.com`;
+
+    const isValidEmail = Email.validate(email);
+
+    expect(isValidEmail).toBeFalsy();
+  });
+
   it('should accept a valid email', () => {
     const email = 'john.doe@gmail.com';
 
