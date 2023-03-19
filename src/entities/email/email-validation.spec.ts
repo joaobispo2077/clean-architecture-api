@@ -25,6 +25,14 @@ describe('Email validation', () => {
     expect(isValidEmail).toBe(false);
   });
 
+  it('should not accept domain part larger than 255 chars', () => {
+    const email = `locaol-part@${'g'.repeat(256)}mail.com`;
+
+    const isValidEmail = Email.validate(email);
+
+    expect(isValidEmail).toBe(false);
+  });
+
   it('should not accept strings larger than 320 chars', () => {
     const email = `${'l'.repeat(63)}@${'g'.repeat(20)}mail.co${'m'.repeat(
       240,
