@@ -18,7 +18,17 @@ describe('Email validation', () => {
   });
 
   it('should not accept local part larger than 64 chars', () => {
-    const email = `${'l'.repeat(65)}@gmai.com`;
+    const email = `${'l'.repeat(65)}@gmail.com`;
+
+    const isValidEmail = Email.validate(email);
+
+    expect(isValidEmail).toBe(false);
+  });
+
+  it('should not accept strings larger than 320 chars', () => {
+    const email = `${'l'.repeat(63)}@${'g'.repeat(20)}mail.co${'m'.repeat(
+      240,
+    )}`;
 
     const isValidEmail = Email.validate(email);
 
