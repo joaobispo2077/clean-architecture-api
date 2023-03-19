@@ -14,7 +14,7 @@ export class Email {
       return false;
     }
 
-    if (local.length > 64) {
+    if (local.length > 64 || local.length === 0) {
       return false;
     }
 
