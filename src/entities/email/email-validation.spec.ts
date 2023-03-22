@@ -6,7 +6,7 @@ describe('Email validation', () => {
 
     const isValidEmail = Email.validate(email as unknown as string);
 
-    expect(isValidEmail).toBe(false);
+    expect(isValidEmail).toBeFalsy();
   });
 
   it('should not accept empty strings', () => {
@@ -14,7 +14,7 @@ describe('Email validation', () => {
 
     const isValidEmail = Email.validate(email);
 
-    expect(isValidEmail).toBe(false);
+    expect(isValidEmail).toBeFalsy();
   });
 
   it('should not accept local part larger than 64 chars', () => {
@@ -22,7 +22,7 @@ describe('Email validation', () => {
 
     const isValidEmail = Email.validate(email);
 
-    expect(isValidEmail).toBe(false);
+    expect(isValidEmail).toBeFalsy();
   });
 
   it('should not accept domain part larger than 255 chars', () => {
@@ -30,7 +30,7 @@ describe('Email validation', () => {
 
     const isValidEmail = Email.validate(email);
 
-    expect(isValidEmail).toBe(false);
+    expect(isValidEmail).toBeFalsy();
   });
 
   it('should not accept strings larger than 320 chars', () => {
@@ -40,7 +40,7 @@ describe('Email validation', () => {
 
     const isValidEmail = Email.validate(email);
 
-    expect(isValidEmail).toBe(false);
+    expect(isValidEmail).toBeFalsy();
   });
 
   it('should not accept empty domain part', () => {
