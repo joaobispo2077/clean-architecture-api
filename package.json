@@ -4,7 +4,11 @@
   "description": "API for a squeze page to register users on a mailing list and to email them a bonus. It was written in Node.js and TypeScript following the Clean Architecture principles.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --passWithNoTests --runInBand",
+    "test:unit": "npm test -- --watch -c jest-unit-config.ts",
+    "test:integration": "npm test -- --watch -c jest-integration-config.ts",
+    "test:staged": "npm test -- --findRelatedTests",
     "commitlint": "lint-staged",
     "prepare": "husky install"
   },
