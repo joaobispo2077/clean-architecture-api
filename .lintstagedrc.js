@@ -1,5 +1,6 @@
 module.exports = {
   "*.ts": [
-    "eslint --fix"
+    "eslint --fix",
+    "npm run test:staged --pasWithNoTests"
   ]
 };
