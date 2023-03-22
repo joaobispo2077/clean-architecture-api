@@ -23,12 +23,24 @@ describe('User domain', () => {
   });
 
   it('should not create user with invalid name (too many chars)', () => {
-    const invalidName = 'O'.repeat(256);
+    const invalidName = 'AO'.repeat(256);
     const error = User.create({
       name: invalidName,
       email: 'john.doe@gmail.com',
     });
 
     expect(error).toEqual(left(new InvalidNameError()));
+  });
+
+  it('should create user with valid data', () => {
+    const validName = 'John Doe';
+    const validEmail = 'john.doe@gmail.com';
+    const user = User.create({
+      name: validName,
+      email: validEmail,
+    }).value as User;
+
+    expect(user.name.value).toBe(validName);
+    expect(user.email.value).toBe(validEmail);
   });
 });
