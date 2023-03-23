@@ -1,4 +1,5 @@
 import { InvalidEmailError } from '../../entities/errors/invalid-email-error';
+import { InvalidNameError } from '../../entities/errors/invalid-name-error';
 import { UserData } from '../../entities/user-data';
 import { left } from '../../shared/either';
 import { UserRepository } from './ports/user-repository';
@@ -22,13 +23,30 @@ describe('[UseCase] - Register user on mailing list', () => {
     expect(response.value.name).toBe(name);
   });
 
+  it('should not add user with invalid e-mail to mailing list', async () => {
+    const users: UserData[] = [];
+    const userRepository: UserRepository = new InMemoryUserRepository(users);
+    const useCaseRegisterUseOnMailingList: RegisterUserOnMailingListUseCase =
+      new RegisterUserOnMailingListUseCase(userRepository);
+    const name = 'Do';
+    const invalidEmail = 'john..com';
+    const response = await useCaseRegisterUseOnMailingList.execute({
+      name,
+      email: invalidEmail,
+    });
+    const user = await userRepository.findUserByEmail(invalidEmail);
+
+    expect(user).toBeNull();
+    expect(response).toEqual(left(new InvalidEmailError()));
+  });
+
   it('should not add user with invalid name to mailing list', async () => {
     const users: UserData[] = [];
     const userRepository: UserRepository = new InMemoryUserRepository(users);
     const useCaseRegisterUseOnMailingList: RegisterUserOnMailingListUseCase =
       new RegisterUserOnMailingListUseCase(userRepository);
-    const invalidName = 'Do';
-    const email = 'john..com';
+    const invalidName = '';
+    const email = 'john.doe@gmail.com';
     const response = await useCaseRegisterUseOnMailingList.execute({
       name: invalidName,
       email,
@@ -36,6 +54,6 @@ describe('[UseCase] - Register user on mailing list', () => {
     const user = await userRepository.findUserByEmail(email);
 
     expect(user).toBeNull();
-    expect(response).toEqual(left(new InvalidEmailError()));
+    expect(response).toEqual(left(new InvalidNameError()));
   });
 });
