@@ -18,4 +18,8 @@ export default {
   transform: {
     '.+\\.ts$': 'ts-jest',
   },
+  moduleNameMapper: {
+    '^@src/(.*)$': '<rootDir>/src/$1',
+    '^@tests/(.*)$': '<rootDir>/tests/$1',
+  },
 };

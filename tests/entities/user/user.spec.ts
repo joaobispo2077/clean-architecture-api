@@ -1,8 +1,5 @@
-import { User } from '../../../src/entities';
-import {
-  InvalidEmailError,
-  InvalidNameError,
-} from '../../../src/entities/errors';
+import { User } from '@src/entities';
+import { InvalidEmailError, InvalidNameError } from '@src/entities/errors';
 
 describe('User domain', () => {
   it('should not create user with invalid e-mail address', () => {
