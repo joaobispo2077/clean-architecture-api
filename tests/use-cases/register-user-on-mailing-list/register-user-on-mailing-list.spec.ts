@@ -1,7 +1,9 @@
-import { InvalidEmailError } from '../../../src/entities/errors/invalid-email-error';
-import { InvalidNameError } from '../../../src/entities/errors/invalid-name-error';
-import { UserData } from '../../../src/entities/user-data';
-import { UserRepository } from '../../../src/use-cases/register-user-on-mailing-list/ports/user-repository';
+import {
+  InvalidEmailError,
+  InvalidNameError,
+} from '../../../src/entities/errors';
+import { UserData } from '../../../src/entities';
+import { UserRepository } from '../../../src/use-cases/register-user-on-mailing-list/ports';
 import { RegisterUserOnMailingListUseCase } from '../../../src/use-cases/register-user-on-mailing-list/register-user-on-mailing-list';
 import { InMemoryUserRepository } from './repository/in-memory-user-repository';
 
