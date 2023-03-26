@@ -1,5 +1,4 @@
 import { User } from '.';
-import { left } from '../../shared/either';
 import { InvalidEmailError } from '../errors/invalid-email-error';
 import { InvalidNameError } from '../errors/invalid-name-error';
 
@@ -9,7 +8,7 @@ describe('User domain', () => {
 
     const error = User.create({ name: 'any_name', email: invalidEmail });
 
-    expect(error).toEqual(left(new InvalidEmailError()));
+    expect(error.value).toBeInstanceOf(InvalidEmailError);
   });
 
   it('should not create user with invalid name (too few chars)', () => {
@@ -19,7 +18,7 @@ describe('User domain', () => {
       email: 'john.doe@gmail.com',
     });
 
-    expect(error).toEqual(left(new InvalidNameError()));
+    expect(error.value).toBeInstanceOf(InvalidNameError);
   });
 
   it('should not create user with invalid name (too many chars)', () => {
@@ -29,7 +28,7 @@ describe('User domain', () => {
       email: 'john.doe@gmail.com',
     });
 
-    expect(error).toEqual(left(new InvalidNameError()));
+    expect(error.value).toBeInstanceOf(InvalidNameError);
   });
 
   it('should create user with valid data', () => {

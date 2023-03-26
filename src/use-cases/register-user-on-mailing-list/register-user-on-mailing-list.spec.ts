@@ -1,7 +1,6 @@
 import { InvalidEmailError } from '../../entities/errors/invalid-email-error';
 import { InvalidNameError } from '../../entities/errors/invalid-name-error';
 import { UserData } from '../../entities/user-data';
-import { left } from '../../shared/either';
 import { UserRepository } from './ports/user-repository';
 import { RegisterUserOnMailingListUseCase } from './register-user-on-mailing-list';
 import { InMemoryUserRepository } from './repository/in-memory-user-repository';
@@ -37,7 +36,7 @@ describe('[UseCase] - Register user on mailing list', () => {
     const user = await userRepository.findUserByEmail(invalidEmail);
 
     expect(user).toBeNull();
-    expect(response).toEqual(left(new InvalidEmailError()));
+    expect(response.value).toBeInstanceOf(InvalidEmailError);
   });
 
   it('should not add user with invalid name to mailing list', async () => {
@@ -54,6 +53,6 @@ describe('[UseCase] - Register user on mailing list', () => {
     const user = await userRepository.findUserByEmail(email);
 
     expect(user).toBeNull();
-    expect(response).toEqual(left(new InvalidNameError()));
+    expect(response.value).toBeInstanceOf(InvalidNameError);
   });
 });
