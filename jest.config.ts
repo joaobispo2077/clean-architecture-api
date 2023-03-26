@@ -4,7 +4,7 @@
  */
 
 export default {
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>/tests'],
   bail: 1,
   clearMocks: true,
   collectCoverage: true,
