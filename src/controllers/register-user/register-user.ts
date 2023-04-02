@@ -1,39 +1,37 @@
-import { RegisterUserOnMailingListUseCase } from '@src/use-cases/register-user-on-mailing-list';
 import { HttpRequest } from '../ports/http-request';
 import { HttpResponse } from '../ports/http-response';
 import { UserData } from '@src/entities';
-import { badRequest, created } from '../utils/http-helper';
+import { badRequest, created, serverError } from '../utils/http-helper';
 import { MissingParamError } from '@src/entities/errors';
+import { UseCase } from '@src/use-cases/ports';
 
 export class RegisterUserController {
-  constructor(
-    private readonly registerUserOnMailingListUseCase: RegisterUserOnMailingListUseCase,
-  ) {}
+  constructor(private readonly registerUserOnMailingListUseCase: UseCase) {}
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
-    const userData: UserData = request.body;
+    try {
+      const userData: UserData = request.body;
 
-    const requiredParameters = ['name', 'email'];
-    const missingParameters = requiredParameters.filter(
-      (param) => !userData[param as keyof UserData],
-    );
+      const requiredParameters = ['name', 'email'];
+      const missingParameters = requiredParameters.filter(
+        (param) => !userData[param as keyof UserData],
+      );
 
-    if (missingParameters.length > 0) {
-      return badRequest(new MissingParamError(missingParameters.join(',')));
-    }
+      if (missingParameters.length > 0) {
+        return badRequest(new MissingParamError(missingParameters.join(',')));
+      }
 
-    const result = await this.registerUserOnMailingListUseCase.execute(
-      userData,
-    );
+      const result = await this.registerUserOnMailingListUseCase.execute(
+        userData,
+      );
 
-    if (result.isLeft()) {
+      if (result.isRight()) {
+        return created(result.value);
+      }
+
       return badRequest(result.value);
+    } catch (error) {
+      return serverError(error);
     }
-
-    if (result.isRight()) {
-      return created(result.value);
-    }
-
-    return created({});
   }
 }
