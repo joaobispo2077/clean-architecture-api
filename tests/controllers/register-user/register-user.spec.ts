@@ -7,11 +7,28 @@ import {
   InvalidNameError,
   MissingParamError,
 } from '@src/entities/errors';
+import { UseCase } from '@src/use-cases/ports';
 import { RegisterUserOnMailingListUseCase } from '@src/use-cases/register-user-on-mailing-list';
 import { UserRepository } from '@src/use-cases/register-user-on-mailing-list/ports';
 import { InMemoryUserRepository } from '@tests/use-cases/register-user-on-mailing-list/repository/in-memory-user-repository';
 
 describe('Register user web controller', () => {
+  const users: UserData[] = [];
+  const userRepository: UserRepository = new InMemoryUserRepository(users);
+  const registerUserOnMailingListUseCase: UseCase =
+    new RegisterUserOnMailingListUseCase(userRepository);
+  const registerUserController = new RegisterUserController(
+    registerUserOnMailingListUseCase,
+  );
+
+  class ErrorThrowingUseCaseStub implements UseCase {
+    execute(): Promise<void> {
+      throw Error();
+    }
+  }
+
+  const errorThrowingUseCaseStub: UseCase = new ErrorThrowingUseCaseStub();
+
   it('should return status code 201 when request contains a valid user', async () => {
     const request: HttpRequest = {
       body: {
@@ -20,13 +37,6 @@ describe('Register user web controller', () => {
       },
     };
 
-    const users: UserData[] = [];
-    const userRepository: UserRepository = new InMemoryUserRepository(users);
-    const registerUserOnMailingListUseCase =
-      new RegisterUserOnMailingListUseCase(userRepository);
-    const registerUserController = new RegisterUserController(
-      registerUserOnMailingListUseCase,
-    );
     const response: HttpResponse = await registerUserController.handle(request);
 
     expect(response.statusCode).toBe(201);
@@ -40,13 +50,6 @@ describe('Register user web controller', () => {
       },
     };
 
-    const users: UserData[] = [];
-    const userRepository: UserRepository = new InMemoryUserRepository(users);
-    const registerUserOnMailingListUseCase =
-      new RegisterUserOnMailingListUseCase(userRepository);
-    const registerUserController = new RegisterUserController(
-      registerUserOnMailingListUseCase,
-    );
     const response: HttpResponse = await registerUserController.handle(request);
 
     expect(response.statusCode).toBe(400);
@@ -61,13 +64,6 @@ describe('Register user web controller', () => {
       },
     };
 
-    const users: UserData[] = [];
-    const userRepository: UserRepository = new InMemoryUserRepository(users);
-    const registerUserOnMailingListUseCase =
-      new RegisterUserOnMailingListUseCase(userRepository);
-    const registerUserController = new RegisterUserController(
-      registerUserOnMailingListUseCase,
-    );
     const response: HttpResponse = await registerUserController.handle(request);
 
     expect(response.statusCode).toBe(400);
@@ -81,13 +77,6 @@ describe('Register user web controller', () => {
       },
     };
 
-    const users: UserData[] = [];
-    const userRepository: UserRepository = new InMemoryUserRepository(users);
-    const registerUserOnMailingListUseCase =
-      new RegisterUserOnMailingListUseCase(userRepository);
-    const registerUserController = new RegisterUserController(
-      registerUserOnMailingListUseCase,
-    );
     const response: HttpResponse = await registerUserController.handle(request);
 
     expect(response.statusCode).toBe(400);
@@ -102,13 +91,6 @@ describe('Register user web controller', () => {
       },
     };
 
-    const users: UserData[] = [];
-    const userRepository: UserRepository = new InMemoryUserRepository(users);
-    const registerUserOnMailingListUseCase =
-      new RegisterUserOnMailingListUseCase(userRepository);
-    const registerUserController = new RegisterUserController(
-      registerUserOnMailingListUseCase,
-    );
     const response: HttpResponse = await registerUserController.handle(request);
 
     expect(response.statusCode).toBe(400);
@@ -121,13 +103,6 @@ describe('Register user web controller', () => {
       body: {},
     };
 
-    const users: UserData[] = [];
-    const userRepository: UserRepository = new InMemoryUserRepository(users);
-    const registerUserOnMailingListUseCase =
-      new RegisterUserOnMailingListUseCase(userRepository);
-    const registerUserController = new RegisterUserController(
-      registerUserOnMailingListUseCase,
-    );
     const response: HttpResponse = await registerUserController.handle(request);
 
     expect(response.statusCode).toBe(400);
@@ -135,5 +110,23 @@ describe('Register user web controller', () => {
     expect((response.body as Error).message).toBe(
       'Missing parameter: name,email',
     );
+  });
+
+  it('should return status code 500 when server raises', async () => {
+    const request: HttpRequest = {
+      body: {
+        name: 'John Doe',
+        email: 'john',
+      },
+    };
+
+    const registerUserController = new RegisterUserController(
+      errorThrowingUseCaseStub,
+    );
+
+    const response: HttpResponse = await registerUserController.handle(request);
+
+    expect(response.statusCode).toBe(500);
+    expect(response.body).toBeInstanceOf(Error);
   });
 });
