@@ -2,7 +2,7 @@ import { RegisterUserOnMailingListUseCase } from '@src/use-cases/register-user-o
 import { HttpRequest } from '../ports/http-request';
 import { HttpResponse } from '../ports/http-response';
 import { UserData } from '@src/entities';
-import { created } from '../utils/http-helper';
+import { badRequest, created } from '../utils/http-helper';
 
 export class RegisterUserController {
   constructor(
@@ -14,6 +14,10 @@ export class RegisterUserController {
     const result = await this.registerUserOnMailingListUseCase.execute(
       userData,
     );
+
+    if (result.isLeft()) {
+      return badRequest(result.value);
+    }
 
     if (result.isRight()) {
       return created(result.value);
