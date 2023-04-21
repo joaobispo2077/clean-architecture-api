@@ -8,9 +8,9 @@ export const setupRoutes = (app: Express) => {
   app.use('/api', router);
 
   // read directories names and import all routes to activate routing
-  readdirSync(join(__dirname, 'routes')).forEach(async (file) => {
+  readdirSync(join(__dirname, '..', 'routes')).forEach(async (file) => {
     console.log('file:', file);
-    const module = await import(join(__dirname, 'routes', file));
+    const module = await import(join(__dirname, '..', 'routes', file));
     module.default(router);
   });
 };
