@@ -2,7 +2,7 @@ import { InvalidEmailError, InvalidNameError } from '@src/entities/errors';
 import { UserData } from '@src/entities';
 import { UserRepository } from '@src/use-cases/register-user-on-mailing-list/ports';
 import { RegisterUserOnMailingListUseCase } from '@src/use-cases/register-user-on-mailing-list/register-user-on-mailing-list';
-import { InMemoryUserRepository } from './repository/in-memory-user-repository';
+import { InMemoryUserRepository } from '@src/use-cases/repositories/in-memory-user-repository';
 
 describe('[UseCase] - Register user on mailing list', () => {
   it('should add user with complete data to mailing list', async () => {
