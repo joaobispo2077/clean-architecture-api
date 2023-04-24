@@ -4,6 +4,7 @@
   "description": "API for a squeze page to register users on a mailing list and to email them a bonus. It was written in Node.js and TypeScript following the Clean Architecture principles.",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
