@@ -10,7 +10,7 @@ import {
 import { UseCase } from '@src/use-cases/ports';
 import { RegisterUserOnMailingListUseCase } from '@src/use-cases/register-user-on-mailing-list';
 import { UserRepository } from '@src/use-cases/register-user-on-mailing-list/ports';
-import { InMemoryUserRepository } from '@tests/use-cases/register-user-on-mailing-list/repository/in-memory-user-repository';
+import { InMemoryUserRepository } from '@src/use-cases/repositories/in-memory-user-repository';
 
 describe('Register user web controller', () => {
   const users: UserData[] = [];
