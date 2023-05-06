@@ -26,4 +26,22 @@ describe('[repository] - MongoDb User', () => {
     const userFound = await usersRepository.findUserByEmail(user.email);
     expect(userFound?.name).toBe(user.name);
   });
+
+  it('should retrieve all users from collection', async () => {
+    const usersRepository = new MongoDbUserRepository();
+    await usersRepository.add(user);
+    await usersRepository.add({
+      name: 'example',
+      email: 'example@example.com',
+    });
+
+    const usersFound = await usersRepository.findAllUsers();
+    expect(usersFound[0]).toEqual(expect.objectContaining(user));
+    expect(usersFound[1]).toEqual(
+      expect.objectContaining({
+        name: 'example',
+        email: 'example@example.com',
+      }),
+    );
+  });
 });
