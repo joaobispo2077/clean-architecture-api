@@ -6,8 +6,8 @@ describe('[repository] - MongoDb User', () => {
     name: 'John Doe',
     email: 'john.doe@gmail.com',
   };
+
   beforeAll(async () => {
-    console.debug('[repository] - MongoDb User, uri:', process.env.MONGO_URL);
     await MongoDbHelper.connect(String(process.env.MONGO_URL));
   });
 
