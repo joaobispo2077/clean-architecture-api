@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  api:
+    image: node:18.13.0-bullseye-slim
+    restart: always
+    container_name: api
+    ports:
+      - 3001:3333
+    volumes:
+      - .:/usr/app
+    links:
+      - database
+    depends_on:
+      - database
+
+  database:
+    image: mongo:5.0
+    container_name: mongodb
+    environment:
+      - MONGODB_DATABASE=app
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+
+volumes:
+  mongodb:
